@@ -1,0 +1,69 @@
+{
+  "name": "CTFd_Award",
+  "version": "1",
+  "author": "Maxime Thiebaut",
+  "url": "https://github.com/ctfd-thehive",
+  "license": "EUPL-1.2",
+  "description": "Awards a CTFd player for confirmed alerts.",
+  "dataTypeList": [
+    "thehive:alert"
+  ],
+  "command": "ctfd-thehive/ctfd-thehive.py",
+  "baseConfig": "ctfd-thehive",
+  "config": {
+    "action": "award",
+    "award": {
+      "name": "Enlightened",
+      "category": "Monitoring",
+      "icon": "crosshairs"
+    }
+  },
+  "configurationItems": [
+    {
+      "name": "session",
+      "description": "The session's value can be found in your cookies once you are logged in on CTFd.",
+      "type": "string",
+      "multi": false,
+      "required": true
+    },
+    {
+      "name": "csrf",
+      "description": "The CSRF can be fond in the \"CSRF-Token\" of send headers to the API.",
+      "type": "string",
+      "multi": false,
+      "required": true
+    },
+    {
+      "name": "api",
+      "description": "The CTFd API endpoint.",
+      "type": "string",
+      "multi": false,
+      "required": true,
+      "defaultValue": "https://localhost/api/v1/"
+    },
+    {
+      "name": "low",
+      "description": "The value of a low severity alert.",
+      "type": "number",
+      "multi": false,
+      "required": true,
+      "defaultValue": 10
+    },
+    {
+      "name": "medium",
+      "description": "The value of a medium severity alert.",
+      "type": "number",
+      "multi": false,
+      "required": true,
+      "defaultValue": 25
+    },
+    {
+      "name": "high",
+      "description": "The value of a high severity alert.",
+      "type": "number",
+      "multi": false,
+      "required": true,
+      "defaultValue": 100
+    }
+  ]
+}
