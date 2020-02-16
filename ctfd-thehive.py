@@ -11,10 +11,8 @@ severities = {1: "low", 2: "medium", 3: "high"}
 class CTFdTheHive(Responder):
     def __init__(self):
         Responder.__init__(self)
-        self.session = self.get_param(
-            'config.session', None, 'Missing CTFd session token')
-        self.csrf = self.get_param(
-            'config.csrf', None, 'Missing CTFd CSRF token')
+        self.token = self.get_param(
+            'config.token', None, 'Missing privileged CTFd access token')
         self.api = self.get_param(
             'config.api', 'https://localhost/api/v1/')
         self.action = self.get_param(
@@ -76,13 +74,12 @@ class CTFdTheHive(Responder):
 
         # Send the reward
         endpoint = parse.urljoin(self.api, 'awards')
-        cookies = dict(session=self.session)
         headers = {
             'Content-Type': 'application/json',
             'Accept': 'application/json',
-            'CSRF-Token': self.csrf
+            'Authorization': f'Bearer {self.token}'
         }
-        r = requests.post(endpoint, json=award, cookies=cookies, headers=headers)
+        r = requests.post(endpoint, json=award, headers=headers)
 
         # Interpret the response
         if r.ok:
@@ -91,7 +88,7 @@ class CTFdTheHive(Responder):
             self.error(f'An error occurred while contacting CTFd at {endpoint} ({r.status_code} {r.reason}): {r.text}')
 
     def operations(self, raw):
-        return [self.build_operation('MarkAlertAsRead'), self.build_operation('AddTagToCase', tag=self.action)]
+        return [self.build_operation('MarkAlertAsRead')]
 
 
 if __name__ == "__main__":

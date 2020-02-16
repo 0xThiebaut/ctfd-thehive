@@ -20,15 +20,8 @@
   },
   "configurationItems": [
     {
-      "name": "session",
-      "description": "The session's value can be found in your cookies once you are logged in on CTFd.",
-      "type": "string",
-      "multi": false,
-      "required": true
-    },
-    {
-      "name": "csrf",
-      "description": "The CSRF can be fond in the \"CSRF-Token\" of send headers to the API.",
+      "name": "token",
+      "description": "A privileged CTFd access token.",
       "type": "string",
       "multi": false,
       "required": true
